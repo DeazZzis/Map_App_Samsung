@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "948689779938",
+    "firebase_url": "https://mapappsamsung.firebaseio.com",
+    "project_id": "mapappsamsung",
+    "storage_bucket": "mapappsamsung.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948689779938:android:bc47372b4417c624",
+        "android_client_info": {
+          "package_name": "com.example.deathis.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948689779938-paumut46cguqc91lbh1q7t4gpq63gg81.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWfkV8y83ExqJBvWsP8pNYejJrqffO2Bo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
