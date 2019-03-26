@@ -1,44 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\Map_App_Samsung\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ml\\values-ml.xml",
+            "outputFile": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ml\\values-ml.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\58e093ab19a7f657f316463b9569e788\\res\\values-ml\\values-ml.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "38",
-                        "startColumns": "4",
-                        "startOffsets": "4854",
-                        "endColumns": "100",
-                        "endOffsets": "4950"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.0.1.aar\\78a10581792304e31521b6ee9a69b93e\\res\\values-ml\\values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "247",
-                        "endColumns": "218",
-                        "endOffsets": "465"
-                    },
-                    "to": {
-                        "startLines": "27",
-                        "startColumns": "4",
-                        "startOffsets": "3138",
-                        "endColumns": "218",
-                        "endOffsets": "3352"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\29231f1ac8ea60d1fdac58910e0cf5d1\\res\\values-ml\\values-ml.xml",
+                    "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\b089e27b90826aef1580d5629c0999f8\\res\\values-ml\\values-ml.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -55,7 +21,41 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-16.0.1.aar\\50b5898982159c877868b6075eaff326\\res\\values-ml\\values.xml",
+                    "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.2.0.aar\\c9c614519d65fdf0e65ebbe4a61f1221\\res\\values-ml\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "218",
+                        "endOffsets": "465"
+                    },
+                    "to": {
+                        "startLines": "27",
+                        "startColumns": "4",
+                        "startOffsets": "3138",
+                        "endColumns": "218",
+                        "endOffsets": "3352"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\ca3bd629b1c249939d171dd2c0c20fe4\\res\\values-ml\\values-ml.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "38",
+                        "startColumns": "4",
+                        "startOffsets": "4854",
+                        "endColumns": "100",
+                        "endOffsets": "4950"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-16.0.1.aar\\f5aa40ee6d0b2e7993c412703af26c30\\res\\values-ml\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",

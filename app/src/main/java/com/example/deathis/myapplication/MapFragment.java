@@ -2,6 +2,11 @@ package com.example.deathis.myapplication;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.location.Criteria;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -24,17 +29,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 import kotlin.collections.MapAccessorsKt;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.LOCATION_SERVICE;
+import static android.content.Context.MODE_APPEND;
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -42,14 +63,21 @@ import static android.content.ContentValues.TAG;
  */
 public class MapFragment extends Fragment {
 
-//ffdf
     private GoogleMap mMap;
     private LocationManager locationManager;
     private String provider;
-
+    private LatLng latLngLviv, latLng, myLocation;
+    private FirebaseAuth mAuth;
+    private DatabaseReference myRef;
+    private DatabaseReference ref;
 
     public MapFragment() {
 
+    }
+
+    @SuppressLint("ValidFragment")
+    public MapFragment(LatLng latLng) {
+        this.latLng = latLng;
     }
 
     @Override
@@ -60,7 +88,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,60 +96,66 @@ public class MapFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_map, container, false);
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        final SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
-        // TODO: Before enabling the My Location layer, you must request
-        // location permission from the user. This sample does not include
-        // a request for location permission.
+
+                if (latLng == null){
+                    latLngLviv = new LatLng(49.841656, 24.027229);
+                    zoomC(latLngLviv, 14);
+                } else {
+                    zoomC(latLng, 17);
+                }
+
+                setMarker();
+
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    boolean success = mMap.setMapStyle(
+                            MapStyleOptions.loadRawResourceStyle(
+                                    getContext(), R.raw.style_map));
+
+                    if (!success) {
+                        Log.e(TAG, "Style parsing failed.");
+                    }
+                } catch (Resources.NotFoundException e) {
+                    Log.e(TAG, "Can't find style. Error: ", e);
+                }
 
 
-        try {
-            // Customise the styling of the base map using a JSON object defined
-            // in a raw resource file.
-            boolean success = mMap.setMapStyle(
-                    MapStyleOptions.loadRawResourceStyle(
-                            getContext(), R.raw.style_map));
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    mMap.setMyLocationEnabled(true);
 
-            if (!success) {
-                Log.e(TAG, "Style parsing failed.");
-            }
-        } catch (Resources.NotFoundException e) {
-            Log.e(TAG, "Can't find style. Error: ", e);
-        }
+                } else {
+                    checkLocationPermission();
+                }
+                mMap.setOnMyLocationButtonClickListener(new OnMyLocationButtonClickListener() {
+                    @Override
+                    public boolean onMyLocationButtonClick() {
 
+                        return false;
+                    }
+                });
+                mMap.setOnMyLocationClickListener(new GoogleMap.OnMyLocationClickListener() {
+                    @Override
+                    public void onMyLocationClick(@NonNull Location location) {
 
+                    }
+                });
 
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-        } else {
-            checkLocationPermission();
-            // Show rationale and request permission.
-        }
-        mMap.setOnMyLocationButtonClickListener(new OnMyLocationButtonClickListener() {
-            @Override
-            public boolean onMyLocationButtonClick() {
-                Toast.makeText(getContext(), "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-//        // Return false so that we don't consume the event and the default behavior still occurs
-//        // (the camera animates to the user's current position).
-                return false;
             }
         });
-        mMap.setOnMyLocationClickListener(new GoogleMap.OnMyLocationClickListener() {
-            @Override
-            public void onMyLocationClick(@NonNull Location location) {
-                Toast.makeText(getContext(), "Current location:\n" + location, Toast.LENGTH_LONG).show();
-            }
-        });
-
-            }
-        });
-        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.map,mapFragment);
+        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.map, mapFragment);
 
         return view;
+    }
+
+    public LatLng getMyLocation(){
+        return myLocation;
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -131,20 +165,16 @@ public class MapFragment extends Fragment {
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+
                 new AlertDialog.Builder(getContext())
                         .setTitle(R.string.title_location_permission)
                         .setMessage(R.string.text_location_permission)
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
                                 ActivityCompat.requestPermissions(getActivity(),
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION);
@@ -155,7 +185,6 @@ public class MapFragment extends Fragment {
 
 
             } else {
-                // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(getActivity(),
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
@@ -171,24 +200,18 @@ public class MapFragment extends Fragment {
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the
-                    // location-related task you need to do.
                     if (ContextCompat.checkSelfPermission(getContext(),
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
 
-                        //Request location updates:
                         locationManager.requestLocationUpdates(provider, 400, 1, (LocationListener) this);
                     }
 
                 } else {
 
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
 
                 }
                 return;
@@ -197,22 +220,43 @@ public class MapFragment extends Fragment {
         }
     }
 
+
     private static final String TAG = MapsActivity.class.getSimpleName();
 
+    public void zoomC(LatLng latLng, int zoom){
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+    }
 
+    public  void setMarker(){
+        mAuth = FirebaseAuth.getInstance();
+        myRef = FirebaseDatabase.getInstance().getReference();
 
-//
-//    @Override
-//    public boolean onMyLocationButtonClick() {
-//        Toast.makeText(getContext(), "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-//        // Return false so that we don't consume the event and the default behavior still occurs
-//        // (the camera animates to the user's current position).
-//        return false;
-//    }
-//
-//    @Override
-//    public void onMyLocationClick(@NonNull Location location) {
-//        Toast.makeText(getContext(), "Current location:\n" + location, Toast.LENGTH_LONG).show();
-//    }
+        final ArrayList<Post> arrayList = new ArrayList<Post>();
+        final Post post = new Post();
+
+        ref = myRef.child("posts");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Post post = postSnapshot.getValue(Post.class);
+                    arrayList.add(post);
+
+                    float lat = Float.parseFloat(post.getLat());
+                    float lng = Float.parseFloat(post.getLng());
+                    String title = post.getTitle();
+
+                    LatLng marketLL = new LatLng(lat, lng);
+                    mMap.addMarker(new MarkerOptions().position(marketLL).title(title));
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
+    }
 
 }
