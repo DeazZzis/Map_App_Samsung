@@ -172,6 +172,10 @@
         "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\b089e27b90826aef1580d5629c0999f8\\res\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
+        "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_mypost.xml.flat",
+        "source": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\src\\main\\res\\layout\\fragment_mypost.xml"
+    },
+    {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_star_half_black_16dp.png.flat",
         "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\b089e27b90826aef1580d5629c0999f8\\res\\drawable-xhdpi-v4\\abc_ic_star_half_black_16dp.png"
     },
@@ -282,6 +286,10 @@
     {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_text_select_handle_right_mtrl_dark.png.flat",
         "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\b089e27b90826aef1580d5629c0999f8\\res\\drawable-xxhdpi-v4\\abc_text_select_handle_right_mtrl_dark.png"
+    },
+    {
+        "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_foreground.png"
     },
     {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher_background.xml.flat",
@@ -510,6 +518,10 @@
     {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxhdpi-v17_abc_spinner_mtrl_am_alpha.9.png.flat",
         "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\b089e27b90826aef1580d5629c0999f8\\res\\drawable-ldrtl-xxhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_foreground.png"
     },
     {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
@@ -746,6 +758,10 @@
     {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_ic_menu_cut_mtrl_alpha.png.flat",
         "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\b089e27b90826aef1580d5629c0999f8\\res\\drawable-xxxhdpi-v4\\abc_ic_menu_cut_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_foreground.png"
     },
     {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
@@ -1228,6 +1244,10 @@
         "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\b089e27b90826aef1580d5629c0999f8\\res\\drawable-xxxhdpi-v4\\abc_btn_radio_to_on_mtrl_000.png"
     },
     {
+        "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_one_my_post.xml.flat",
+        "source": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\src\\main\\res\\layout\\activity_one_my_post.xml"
+    },
+    {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_fade_out.xml.flat",
         "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\b089e27b90826aef1580d5629c0999f8\\res\\anim\\abc_fade_out.xml"
     },
@@ -1322,6 +1342,10 @@
     {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_light.xml.flat",
         "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-16.0.1.aar\\f5aa40ee6d0b2e7993c412703af26c30\\res\\drawable\\common_google_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_foreground.png"
     },
     {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_common_google_signin_btn_icon_light_normal_background.9.png.flat",
@@ -1434,6 +1458,10 @@
     {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_mode_close_item_material.xml.flat",
         "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\b089e27b90826aef1580d5629c0999f8\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_map_for_posts.xml.flat",
+        "source": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\src\\main\\res\\layout\\activity_map_for_posts.xml"
     },
     {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_star_black_36dp.png.flat",
@@ -1844,6 +1872,10 @@
         "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\b089e27b90826aef1580d5629c0999f8\\res\\drawable-hdpi-v4\\abc_text_select_handle_left_mtrl_light.png"
     },
     {
+        "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_new_post.xml.flat",
+        "source": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\src\\main\\res\\layout\\activity_new_post.xml"
+    },
+    {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_googleg_disabled_color_18.png.flat",
         "source": "C:\\Users\\Deathis\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-16.0.1.aar\\f5aa40ee6d0b2e7993c412703af26c30\\res\\drawable-xxhdpi-v4\\googleg_disabled_color_18.png"
     },
@@ -1870,6 +1902,10 @@
     {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_foreground.png"
     },
     {
         "merged": "C:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\res\\merged\\debug\\drawable-watch-v20_abc_dialog_material_background.xml.flat",

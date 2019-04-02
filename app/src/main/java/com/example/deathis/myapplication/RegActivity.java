@@ -73,9 +73,6 @@ public class RegActivity extends AppCompatActivity {
                 }
                 if (i == 0) {
                     Registration();
-                    startActivity(new Intent(RegActivity.this,
-                            LoginActivity.class));
-                    finish();
                 }
             }
         });
@@ -89,24 +86,15 @@ public class RegActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = task.getResult().getUser();
-                            Toast.makeText(RegActivity.this,
-                                    "Registration Complete.", Toast.LENGTH_SHORT);
+                            Toast.makeText(getApplicationContext(), "Реєстрація успішна!",
+                                    Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(RegActivity.this,
+                                    LoginActivity.class);
+                            startActivity(intent);
                         } else {
-                            try {
-                                throw task.getException();
-                            } catch (FirebaseAuthWeakPasswordException e) {
-                                Toast.makeText(RegActivity.this,
-                                        "Weak password, try again!", Toast.LENGTH_SHORT);
-                                edPASS.setError("Weak password!");
-                            } catch (FirebaseAuthUserCollisionException e) {
-                                Toast.makeText(RegActivity.this,
-                                        "Email is registered, choose another!",
-                                        Toast.LENGTH_SHORT);
-                                edEM.setError("Email is already registered, choose another!");
-                            } catch (Exception e) {
-
-                            }
+                            Toast.makeText(getApplicationContext(),
+                                    "Реєстрація провалиласяс! Попробуйте ще раз пізніше",
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 });

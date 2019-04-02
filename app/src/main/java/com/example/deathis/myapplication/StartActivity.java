@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -58,7 +59,7 @@ public class StartActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        checkLocationPermission();
+
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -70,7 +71,7 @@ public class StartActivity extends AppCompatActivity {
                     finish();
                 } else if (mAuth.getCurrentUser() == null) {
                     startActivity(new Intent(StartActivity.this,
-                            MapsActivity.class));
+                            LoginActivity.class));
                     finish();
 
                     // ДОРОБИТИ ЛОГІН!!!!!

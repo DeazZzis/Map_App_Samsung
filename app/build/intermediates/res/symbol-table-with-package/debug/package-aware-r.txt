@@ -531,6 +531,7 @@ color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color ic_launcher_background
 color material_blue_grey_800
 color material_blue_grey_900
 color material_blue_grey_950
@@ -902,9 +903,13 @@ id blocking
 id bottom
 id button2_map
 id button2_post
+id buttonCreateNewPost
+id buttonCreatePost
 id buttonLogin
 id buttonPanel
 id buttonReg
+id buttonRemovePost
+id buttonSetPoint
 id buttonSingUp
 id cancel_action
 id center
@@ -933,11 +938,13 @@ id design_navigation_view
 id dimensions
 id direct
 id disableHome
+id editText
 id editTextEmail
 id editTextFirstName
 id editTextPass
 id editTextPassword
 id editTextSecondName
+id editTitle
 id edit_query
 id end
 id end_padder
@@ -952,6 +959,8 @@ id fill_vertical
 id fixed
 id forever
 id framelayout2
+id framelayout2_one_my_post
+id framelayout3
 id ghost_view
 id gone
 id groups
@@ -973,8 +982,10 @@ id light
 id line1
 id line3
 id linearLayoutEditText
+id linearLayout_one_my_post
 id listMode
 id list_item
+id maP
 id map
 id map_f
 id map_nav_view
@@ -982,6 +993,7 @@ id masked
 id media_actions
 id message
 id meters_info
+id meters_info_one_my_post
 id middle
 id mini
 id multiply
@@ -1007,6 +1019,9 @@ id post_nav_view
 id progress_circular
 id progress_horizontal
 id radio
+id recyclerview2
+id relativelayout1
+id relativelayout2
 id right
 id right_icon
 id right_side
@@ -1057,6 +1072,7 @@ id submenuarrow
 id submit_area
 id tabItem
 id tabItem2
+id tabItem3
 id tabMode
 id tabs
 id tag_transition_group
@@ -1072,12 +1088,15 @@ id textViewSecondName
 id text_input_password_toggle
 id textinput_counter
 id textinput_error
+id textview_text
+id textview_text_one_my_post
 id textview_time
 id textview_title
 id time
 id title
 id titleDividerNoCustom
 id title_info
+id title_info_one_my_post
 id title_template
 id toolbar
 id top
@@ -1093,6 +1112,7 @@ id up
 id useLogo
 id view
 id view1
+id viewButton
 id view_offset_helper
 id visible
 id wide
@@ -1139,7 +1159,10 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_info_post
 layout activity_login
+layout activity_map_for_posts
 layout activity_maps
+layout activity_new_post
+layout activity_one_my_post
 layout activity_post
 layout activity_reg
 layout activity_start
@@ -1159,6 +1182,7 @@ layout design_navigation_menu_item
 layout design_text_input_password_icon
 layout fragment_main
 layout fragment_map
+layout fragment_mypost
 layout fragment_post
 layout notification_action
 layout notification_action_tombstone
@@ -1184,6 +1208,7 @@ menu menu
 menu navigation
 menu navigation_view
 mipmap ic_launcher
+mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 raw style_map
 string abc_action_bar_home_description

@@ -85,31 +85,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = task.getResult().getUser();
-                            Toast.makeText(LoginActivity.this,
-                                    "Login success!", Toast.LENGTH_SHORT);
+                            Toast.makeText(getApplicationContext(), "Успішний вхід!",
+                                    Toast.LENGTH_LONG).show();
 
-
-                            startActivity(new Intent(LoginActivity.this,
-                                    MapsActivity.class));
-                            finish();
+                            Intent intent = new Intent(LoginActivity.this,
+                                    MapsActivity.class);
+                            startActivity(intent);
                         } else {
-                            try {
-                                throw task.getException();
-                            } catch (FirebaseAuthWeakPasswordException e) {
-                                Toast.makeText(LoginActivity.this,
-                                        "Weak password, try again!", Toast.LENGTH_SHORT);
-                                editTextPass.setError("Weak password!");
-
-                            } catch (FirebaseAuthInvalidCredentialsException e) {
-                                Toast.makeText(LoginActivity.this,
-                                        "Email or Password is wrong, try again!",
-                                        Toast.LENGTH_SHORT);
-
-                                editTextLogin.setError("Email is already registered, choose another!");
-                            } catch (Exception e) {
-
-                            }
+                            Toast.makeText(getApplicationContext(),
+                                    "Виникла помилка! Попробуйте будь ласка пізніше",
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 });

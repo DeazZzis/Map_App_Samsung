@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 //import com.google.android.gms.location.FusedLocationProviderClient;
@@ -32,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,12 +54,13 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RViewHolder> {
 
     private static int viewHolderCount;
-    private int numItems;
+    private int numItems, rep_size;
     private String title, text, lat, lng, meters;
     private ArrayList<Post> mainS;
     private Context parent;
     private double myLat, myLng;
     private float dis[] = new float[10];
+    private Button btn_up, btn_down;
 
 
     public RVAdapter(ArrayList<Post> mainS, Context context, double myLat, double myLng){
@@ -71,6 +74,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RViewHolder> {
     public RViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         int layoutIdForListItem = R.layout.post_list_item;
+
+
+
+
 
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -98,15 +105,34 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RViewHolder> {
 
         TextView textView_title;
         TextView textView_text;
+        TextView textView_rep;
 
         double D;
 
         public RViewHolder(View itemView)  {
             super(itemView);
 
+
+
             textView_title = itemView.findViewById(R.id.textview_title);
             textView_text = itemView.findViewById(R.id.textview_time);
-
+//            textView_rep = itemView.findViewById(R.id.textview_rep);
+//            btn_down = itemView.findViewById(R.id.button_rep_down);
+//            btn_up = itemView.findViewById(R.id.button_rep_up);
+//
+//            btn_down.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
+//
+//            btn_up.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,6 +164,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RViewHolder> {
 
         void bind(String s1, String lat2, String lng2){
             textView_title.setText(s1);
+
 
             D = distance(myLat, myLng, Float.parseFloat(lat2), Float.parseFloat(lng2));
             if (D != 0  && D <= 20000){

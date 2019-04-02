@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.deathis.myapplication">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -18,6 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".OneMyPostActivity"></activity>
+        <activity android:name=".MapForPostsActivity" />
+        <activity android:name=".NewPostActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -25,7 +27,7 @@
 
         <activity
             android:name=".InfoPostActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".StartActivity"
             android:noHistory="true"
@@ -42,8 +44,6 @@
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"

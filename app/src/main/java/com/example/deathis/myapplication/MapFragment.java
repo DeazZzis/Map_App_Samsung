@@ -70,14 +70,16 @@ public class MapFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
     private DatabaseReference ref;
+    private int zoomS;
 
     public MapFragment() {
 
     }
 
     @SuppressLint("ValidFragment")
-    public MapFragment(LatLng latLng) {
+    public MapFragment(LatLng latLng, int zoomS) {
         this.latLng = latLng;
+        this.zoomS = zoomS;
     }
 
     @Override
@@ -96,6 +98,9 @@ public class MapFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_map, container, false);
+
+        zoomS = 14;
+
         final SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -104,9 +109,9 @@ public class MapFragment extends Fragment {
 
                 if (latLng == null){
                     latLngLviv = new LatLng(49.841656, 24.027229);
-                    zoomC(latLngLviv, 14);
+                    zoomC(latLngLviv, zoomS);
                 } else {
-                    zoomC(latLng, 17);
+                    zoomC(latLng, zoomS);
                 }
 
                 setMarker();
@@ -238,6 +243,7 @@ public class MapFragment extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                arrayList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Post post = postSnapshot.getValue(Post.class);
                     arrayList.add(post);

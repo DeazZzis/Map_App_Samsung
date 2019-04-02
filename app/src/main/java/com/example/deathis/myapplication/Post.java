@@ -1,8 +1,10 @@
 package com.example.deathis.myapplication;
 
+import java.util.ArrayList;
+
 public class Post {
 
-    private String title,lat, lng, text, time;
+    private String title,lat, lng, text, time, author;
 
 
     public String getLat() {
@@ -44,4 +46,13 @@ public class Post {
     public void setLng(String lng) {
         this.lng = lng;
     }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
 }

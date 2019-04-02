@@ -162,6 +162,9 @@ public class MapsActivity extends AppCompatActivity
                     fragment = new PostFragment();
                     fragment.setArguments(bundle);
                     break;
+                case 2:
+                    fragment = new MyPostFragment();
+                    break;
             }
             return fragment;
         }
@@ -170,7 +173,7 @@ public class MapsActivity extends AppCompatActivity
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 2;
+            return 3;
         }
     }
 

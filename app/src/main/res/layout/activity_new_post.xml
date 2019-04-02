@@ -1,9 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NewPostActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/framelayout3"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewButton"
+        android:layout_width="match_parent"
+        android:layout_height="220dp" />
+
+    <RelativeLayout
+        android:id="@+id/relativelayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/framelayout3"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:text="Title: "
+            android:textSize="28sp" />
+
+        <EditText
+            android:id="@+id/editTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:ems="10"
+            android:hint="Title"
+            android:textSize="27sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativelayout2"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:text="Text: "
+            android:textSize="28sp" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:ems="11"
+            android:gravity="top|left"
+            android:hint="Write a description here\n.\n.\n."
+            android:inputType="textMultiLine"
+            android:lines="5"
+            android:maxLines="6"
+            android:minLines="4"
+            android:scrollbars="vertical"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/buttonCreatePost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Створити точку"
+        android:textSize="30sp" />
+
+</RelativeLayout>

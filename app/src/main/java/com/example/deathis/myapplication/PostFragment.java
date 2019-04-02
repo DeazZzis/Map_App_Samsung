@@ -43,8 +43,8 @@ public class PostFragment extends Fragment {
     private DatabaseReference ref;
     private ArrayList<Post> post1;
     private int numberOfItems;
-    private ArrayList<Post> arrayList;
-    private GenericTypeIndicator<ArrayList<Post>> genericTypeIndicator;
+    private ArrayList<Post> arrayListPost;
+    private ArrayList<Rep> arrayListRepUp, arrayListRepDown;
     private double myLat, myLng;
 
 
@@ -71,8 +71,7 @@ public class PostFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.rv);
 
-        arrayList = new ArrayList<Post>();
-
+        arrayListPost = new ArrayList<Post>();
 
         mAuth = FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference();
@@ -81,9 +80,10 @@ public class PostFragment extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                arrayListPost.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Post post = postSnapshot.getValue(Post.class);
-                    arrayList.add(post);
+                    arrayListPost.add(post);
                 }
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -91,7 +91,7 @@ public class PostFragment extends Fragment {
 
                 MapsActivity mapsActivity = new MapsActivity();
 
-                rvAdapter = new RVAdapter(arrayList, view.getContext(), myLat, myLng);
+                rvAdapter = new RVAdapter(arrayListPost, view.getContext(), myLat, myLng);
                 recyclerView.setAdapter(rvAdapter);
 
 
@@ -102,6 +102,8 @@ public class PostFragment extends Fragment {
 
             }
         });
+
+
 
 
         return view;

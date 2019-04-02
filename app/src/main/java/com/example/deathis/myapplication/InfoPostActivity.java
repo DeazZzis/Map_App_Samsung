@@ -27,8 +27,6 @@ public class InfoPostActivity extends AppCompatActivity {
     private float lat, lng;
     private String dis;
     private double D;
-    private int clickT = 0;
-    private int clickD = 0;
     private DatabaseReference myRef;
     private FirebaseAuth mAuth;
 
@@ -49,11 +47,12 @@ public class InfoPostActivity extends AppCompatActivity {
         D = Double.parseDouble(bundle.getString("D"));
         LatLng latLng = new LatLng(lat, lng);
 
+        TextView textViewText = findViewById(R.id.textview_text);
         TextView textViewTitle = findViewById(R.id.title_info);
         TextView textViewMet = findViewById(R.id.meters_info);
 
         textViewTitle.setText(title);
-
+        textViewText.setText(text);
 
 
         if (D != 0 && D < 20000) {
@@ -62,7 +61,7 @@ public class InfoPostActivity extends AppCompatActivity {
             textViewMet.setText("");
         }
 
-        MapFragment mapFragment = new MapFragment(latLng);
+        MapFragment mapFragment = new MapFragment(latLng, 17);
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout2, mapFragment).commit();
 
         myRef = FirebaseDatabase.getInstance().getReference();
