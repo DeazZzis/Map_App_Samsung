@@ -32,6 +32,8 @@ public class MyPostFragment extends Fragment {
     private MyPostAdapter myPostAdapter;
     private double myLat, myLng;
     private Button button_createnew;
+    private ArrayList<Rep> arrayListRepUp, arrayListRepDown;
+
 
     public MyPostFragment() {
         // Required empty public constructor
@@ -58,6 +60,8 @@ public class MyPostFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerview2);
         arrayList = new ArrayList<Post>();
+        arrayListRepUp = new ArrayList<Rep>();
+        arrayListRepDown = new ArrayList<Rep>();
 
         mAuth = FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference();
@@ -67,8 +71,26 @@ public class MyPostFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 arrayList.clear();
+                arrayListRepUp.clear();
+                arrayListRepDown.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Post post = postSnapshot.getValue(Post.class);
+                    for (DataSnapshot postSnapshotRep_up : postSnapshot.child("rep_up").getChildren()) {
+                        Rep rep = postSnapshotRep_up.getValue(Rep.class);
+                        arrayListRepUp.add(rep);
+                    }
+                    for (DataSnapshot postSnapshotRep_down : postSnapshot.child("rep_down").getChildren()) {
+                        Rep rep = postSnapshotRep_down.getValue(Rep.class);
+                        arrayListRepDown.add(rep);
+                    }
+                    Post post = new Post();
+                    post.setTime(postSnapshot.child("time").getValue().toString());
+                    post.setTitle(postSnapshot.child("title").getValue().toString());
+                    post.setText(postSnapshot.child("text").getValue().toString());
+                    post.setAuthor(postSnapshot.child("author").getValue().toString());
+                    post.setLat(postSnapshot.child("lat").getValue().toString());
+                    post.setLng(postSnapshot.child("lng").getValue().toString());
+                    post.setRep_up(arrayListRepUp);
+                    post.setRep_down(arrayListRepDown);
                     if(post.getAuthor().toString().equals(mAuth.getUid())){
                         arrayList.add(post);
                     } else {
@@ -82,6 +104,9 @@ public class MyPostFragment extends Fragment {
 
                 MapsActivity mapsActivity = new MapsActivity();
 
+                GPSTracker gpsTracker = new GPSTracker(view.getContext());
+                myLng = gpsTracker.getLongitude();
+                myLat = gpsTracker.getLatitude();
 
                 myPostAdapter = new MyPostAdapter(arrayList, view.getContext(), myLat, myLng);
                 recyclerView.setAdapter(myPostAdapter);

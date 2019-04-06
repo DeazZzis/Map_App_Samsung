@@ -34,6 +34,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -71,6 +72,8 @@ public class MapFragment extends Fragment {
     private DatabaseReference myRef;
     private DatabaseReference ref;
     private int zoomS;
+    private ArrayList<Post> arrayListPost;
+    private ArrayList<Rep> arrayListRepUp, arrayListRepDown;
 
     public MapFragment() {
 
@@ -97,7 +100,7 @@ public class MapFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        final View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         zoomS = 14;
 
@@ -108,9 +111,11 @@ public class MapFragment extends Fragment {
                 mMap = googleMap;
 
                 if (latLng == null){
-                    latLngLviv = new LatLng(49.841656, 24.027229);
+                    GPSTracker gpsTracker = new GPSTracker(view.getContext());
+                    latLngLviv = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
                     zoomC(latLngLviv, zoomS);
                 } else {
+                    mMap.addMarker(new MarkerOptions().position(latLng));
                     zoomC(latLng, zoomS);
                 }
 
@@ -239,21 +244,45 @@ public class MapFragment extends Fragment {
         final ArrayList<Post> arrayList = new ArrayList<Post>();
         final Post post = new Post();
 
+        arrayListPost = new ArrayList<Post>();
+
+        arrayListRepUp = new ArrayList<Rep>();
+        arrayListRepDown = new ArrayList<Rep>();
+
         ref = myRef.child("posts");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                arrayList.clear();
+                arrayListPost.clear();
+                arrayListRepUp.clear();
+                arrayListRepDown.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Post post = postSnapshot.getValue(Post.class);
-                    arrayList.add(post);
+                    for (DataSnapshot postSnapshotRep_up : postSnapshot.child("rep_up").getChildren()) {
+                        Rep rep = postSnapshotRep_up.getValue(Rep.class);
+                        arrayListRepUp.add(rep);
+                    }
+                    for (DataSnapshot postSnapshotRep_down : postSnapshot.child("rep_down").getChildren()) {
+                        Rep rep = postSnapshotRep_down.getValue(Rep.class);
+                        arrayListRepDown.add(rep);
+                    }
+                    Post post = new Post();
+                    post.setTime(postSnapshot.child("time").getValue().toString());
+                    post.setTitle(postSnapshot.child("title").getValue().toString());
+                    post.setText(postSnapshot.child("text").getValue().toString());
+                    post.setAuthor(postSnapshot.child("author").getValue().toString());
+                    post.setLat(postSnapshot.child("lat").getValue().toString());
+                    post.setLng(postSnapshot.child("lng").getValue().toString());
+                    post.setRep_up(arrayListRepUp);
+                    post.setRep_down(arrayListRepDown);
+                    arrayListPost.add(post);
 
                     float lat = Float.parseFloat(post.getLat());
                     float lng = Float.parseFloat(post.getLng());
                     String title = post.getTitle();
 
                     LatLng marketLL = new LatLng(lat, lng);
-                    mMap.addMarker(new MarkerOptions().position(marketLL).title(title));
+                    mMap.addMarker(new MarkerOptions().position(marketLL).title(title))
+                            .setIcon(BitmapDescriptorFactory.defaultMarker(150));
                 }
 
             }

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PostFragment"
-    android:id="@+id/post_f">
+    android:id="@+id/post_f"
+    android:background="#B8B8B8">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"

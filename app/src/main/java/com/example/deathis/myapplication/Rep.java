@@ -4,6 +4,7 @@ public class Rep {
 
     private String auth;
 
+
     public String getAuth() {
         return auth;
     }

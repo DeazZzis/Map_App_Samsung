@@ -84,7 +84,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.RViewHolde
     @Override
     public void onBindViewHolder(@NonNull RViewHoldeR holder, int position) {
         holder.bind(mainS.get(position).getTitle(), mainS.get(position).getLat(),
-                mainS.get(position).getLng());
+                mainS.get(position).getLng(), mainS.get(position));
     }
 
     @Override
@@ -97,6 +97,8 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.RViewHolde
 
         TextView textView_title;
         TextView textView_text;
+        TextView textView_rep;
+
 
         double D;
 
@@ -104,7 +106,9 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.RViewHolde
             super(itemView);
 
             textView_title = itemView.findViewById(R.id.textview_title);
-            textView_text = itemView.findViewById(R.id.textview_time);
+            textView_text = itemView.findViewById(R.id.textview_met);
+            textView_rep = itemView.findViewById(R.id.textview_rep);
+
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -116,11 +120,10 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.RViewHolde
                     lat = String.valueOf(mainS.get(position).getLat());
                     lng = String.valueOf(mainS.get(position).getLng());
 
-                    D = distance(myLat, myLng, Float.parseFloat(lat), Float.parseFloat(lng));
-                    if (D != 0 && D <= 20000) {
-                        meters = dist_int(D);
+                    if (D != 0 && D <= 15000) {
+                        meters = String.valueOf((int) D) + "м";
                     } else {
-                        meters = "0";
+                        meters = "";
                     }
 
                     Intent in = new Intent(parent, OneMyPostActivity.class);
@@ -129,18 +132,23 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.RViewHolde
                     in.putExtra("lat", lat);
                     in.putExtra("lng", lng);
                     in.putExtra("meters", meters);
+                    in.putExtra("rep_int", mainS.get(position).getRep_up().size() -
+                            mainS.get(position).getRep_down().size());
+                    in.putExtra("auth", mainS.get(position).getAuthor());
                     in.putExtra("D", String.valueOf(D));
                     parent.startActivity(in);
                 }
             });
         }
 
-        void bind(String s1, String lat2, String lng2) {
+        void bind(String s1, String lat2, String lng2, Post post) {
             textView_title.setText(s1);
+            int rep_size = post.getRep_up().size() - post.getRep_down().size();
+            textView_rep.setText(String.valueOf(rep_size));
 
             D = distance(myLat, myLng, Float.parseFloat(lat2), Float.parseFloat(lng2));
-            if (D != 0 && D <= 20000) {
-                meters = dist_int(D);
+            if (D != 0 && D <= 15000) {
+                meters = String.valueOf((int) D) + "м";
             } else {
                 meters = "0";
             }
@@ -157,21 +165,10 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.RViewHolde
             return dis[0];
         }
 
-        private String dist_int(double dis) {
-            int disInt = (int) (dis / 50);
-            disInt *= 50;
-            String t = "м";
-            if (disInt <= 100) {
-                return ">" + String.valueOf(disInt) + t;
-            } else if (disInt <= 950) {
-                disInt += 50;
-                return ">" + String.valueOf(disInt) + t;
-            } else if (disInt > 1000) {
-                disInt /= 1000;
-                t = "км";
-                return ">" + String.valueOf(disInt) + t;
-            }
-            return ">" + String.valueOf(disInt) + t;
+        private String str_dis(double dist) {
+            String d = "";
+
+            return d;
         }
     }
 

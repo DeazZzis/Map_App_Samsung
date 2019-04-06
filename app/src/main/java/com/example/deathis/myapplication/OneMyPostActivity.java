@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,11 +33,11 @@ public class OneMyPostActivity extends AppCompatActivity {
 
     private String title, text;
     private float lat, lng;
-    private String dis;
+    private String dis, fn, sn, uid;
     private double D;
     private DatabaseReference myRef, ref, del_ref;
     private FirebaseAuth mAuth;
-
+    private int i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +46,18 @@ public class OneMyPostActivity extends AppCompatActivity {
 
 
         Bundle bundle = getIntent().getExtras();
+        uid = bundle.getString("auth");
         title = bundle.getString("title");
         text = bundle.getString("text");
         lat = Float.parseFloat(bundle.getString("lat"));
         lng = Float.parseFloat(bundle.getString("lng"));
         dis = bundle.getString("meters");
         D = Double.parseDouble(bundle.getString("D"));
+        i = bundle.getInt("rep_int");
         LatLng latLng = new LatLng(lat, lng);
 
+        TextView textViewUser = findViewById(R.id.textview_user);
+        TextView textViewRep = findViewById(R.id.textview_rep1);
         TextView textViewText = findViewById(R.id.textview_text_one_my_post);
         TextView textViewTitle = findViewById(R.id.title_info_one_my_post);
         TextView textViewMet = findViewById(R.id.meters_info_one_my_post);
@@ -73,9 +79,8 @@ public class OneMyPostActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         arrayList.clear();
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            Post post = postSnapshot.getValue(Post.class);
-                            if (post.getAuthor().toString().equals(mAuth.getUid()) &&
-                                    post.getTitle().equals(title)) {
+                            if (postSnapshot.child("author").getValue().toString().equals(mAuth.getUid()) &&
+                                    postSnapshot.child("title").getValue().equals(title)) {
                                 del_ref.child(postSnapshot.getKey()).removeValue();
                             }
                         }
@@ -91,8 +96,27 @@ public class OneMyPostActivity extends AppCompatActivity {
             }
         });
 
+        myRef = FirebaseDatabase.getInstance().getReference();
+        myRef.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    if (postSnapshot.child("uid").getValue().toString().equals(uid)) {
+                        fn = postSnapshot.child("first_name").getValue().toString();
+                        sn = postSnapshot.child("second_name").getValue().toString();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+
         textViewTitle.setText(title);
         textViewText.setText(text);
+        textViewUser.setText(fn + " " + sn);
+        textViewRep.setText(String.valueOf(i));
 
 
         if (D != 0 && D < 20000) {

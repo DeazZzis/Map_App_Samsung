@@ -31,7 +31,6 @@ public class NewPostActivity extends AppCompatActivity {
     private LatLng latLng;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,23 +48,29 @@ public class NewPostActivity extends AppCompatActivity {
         myLat = gpsTracker.getLatitude();
         myLng = gpsTracker.getLongitude();
 
+
         lat = receiveIntent.getDoubleExtra("lat", myLat);
         lng = receiveIntent.getDoubleExtra("lng", myLng);
+        title = receiveIntent.getStringExtra("title");
+        text = receiveIntent.getStringExtra("text");
+
+        edText.setText(text);
+        edTitle.setText(title);
+
+        latLng = new LatLng(lat, lng);
 
 
-        latLng = new LatLng(myLat, myLat);
-
-
-        MapFragment mapFragment = new MapFragment(latLng, 14);
+        MapFragment mapFragment = new MapFragment(latLng, 13);
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout3, mapFragment).commit();
 
         View view = findViewById(R.id.viewButton);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(NewPostActivity.this,
-                        MapForPostsActivity.class));
-                finish();
+                Intent intent = new Intent(NewPostActivity.this, MapForPostsActivity.class);
+                intent.putExtra("title", edTitle.getText().toString());
+                intent.putExtra("text", edText.getText().toString());
+                startActivity(intent);
             }
         });
 
@@ -73,19 +78,35 @@ public class NewPostActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
+                                          int i = 0;
+                                          if (edTitle.getText().toString().equals("")) {
+                                              i += 1;
+                                              edTitle.setError("Це поле не може бути пустим!");
+                                          }
+                                          if (edText.getText().toString().equals("")) {
+                                              i += 1;
+                                              edText.setError("Це поле не може бути пустим!");
+                                          }
+                                          if (i == 0) {
+                                              Post post = new Post();
+                                              Rep rep = new Rep();
+                                              rep.setAuth("test");
+                                              ArrayList<Rep> arrayList = new ArrayList<Rep>();
+                                              arrayList.add(rep);
+                                              post.setAuthor(mAuth.getUid().toString());
+                                              post.setLat(String.valueOf(lat));
+                                              post.setLng(String.valueOf(lng));
+                                              post.setText(edText.getText().toString());
+                                              post.setTime(getCurrentTime());
+                                              post.setTitle(edTitle.getText().toString());
+                                              post.setRep_down(arrayList);
+                                              post.setRep_up(arrayList);
+                                              myRef.child("posts").push().setValue(post);
 
-                                          Post post = new Post();
-                                          post.setAuthor(mAuth.getUid().toString());
-                                          post.setLat(String.valueOf(lat));
-                                          post.setLng(String.valueOf(lng));
-                                          post.setText(edText.getText().toString());
-                                          post.setTime(getCurrentTime());
-                                          post.setTitle(edTitle.getText().toString());
-                                          myRef.child("posts").push().setValue(post);
-
-                                          startActivity(new Intent(NewPostActivity.this,
-                                                  MapsActivity.class));
-                                          finish();
+                                              startActivity(new Intent(NewPostActivity.this,
+                                                      MapsActivity.class));
+                                              finish();
+                                          }
                                       }
                                   }
         );

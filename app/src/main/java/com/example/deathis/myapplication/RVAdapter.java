@@ -44,6 +44,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.Executor;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -60,10 +61,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RViewHolder> {
     private Context parent;
     private double myLat, myLng;
     private float dis[] = new float[10];
-    private Button btn_up, btn_down;
 
 
-    public RVAdapter(ArrayList<Post> mainS, Context context, double myLat, double myLng){
+    public RVAdapter(ArrayList<Post> mainS, Context context, double myLat, double myLng) {
         this.mainS = mainS;
         parent = context;
         this.myLat = myLat;
@@ -74,9 +74,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RViewHolder> {
     public RViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         int layoutIdForListItem = R.layout.post_list_item;
-
-
-
 
 
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -91,8 +88,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RViewHolder holder, int position) {
+        rep_size = mainS.get(position).getRep_up().size() - mainS.get(position).getRep_down().size();
+
         holder.bind(mainS.get(position).getTitle(), mainS.get(position).getLat(),
-                mainS.get(position).getLng());
+                mainS.get(position).getLng(), mainS.get(position));
     }
 
     @Override
@@ -109,14 +108,15 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RViewHolder> {
 
         double D;
 
-        public RViewHolder(View itemView)  {
+        public RViewHolder(View itemView) {
             super(itemView);
 
 
-
             textView_title = itemView.findViewById(R.id.textview_title);
-            textView_text = itemView.findViewById(R.id.textview_time);
-//            textView_rep = itemView.findViewById(R.id.textview_rep);
+            textView_text = itemView.findViewById(R.id.textview_met);
+
+            textView_rep = itemView.findViewById(R.id.textview_rep);
+
 //            btn_down = itemView.findViewById(R.id.button_rep_down);
 //            btn_up = itemView.findViewById(R.id.button_rep_up);
 //
@@ -144,10 +144,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RViewHolder> {
                     lng = String.valueOf(mainS.get(position).getLng());
 
                     D = distance(myLat, myLng, Float.parseFloat(lat), Float.parseFloat(lng));
-                    if (D != 0  && D <= 20000){
-                        meters = dist_int(D);
+
+                    if (D != 0 && D <= 15000) {
+                        meters = String.valueOf((int) D) + "м";
                     } else {
-                        meters = "0";
+                        meters = "";
                     }
 
                     Intent in = new Intent(parent, InfoPostActivity.class);
@@ -162,43 +163,34 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RViewHolder> {
             });
         }
 
-        void bind(String s1, String lat2, String lng2){
+        void bind(String s1, String lat2, String lng2, Post post) {
             textView_title.setText(s1);
-
+            int rep_size = post.getRep_up().size() - post.getRep_down().size();
+            textView_rep.setText(String.valueOf(rep_size));
 
             D = distance(myLat, myLng, Float.parseFloat(lat2), Float.parseFloat(lng2));
-            if (D != 0  && D <= 20000){
-                meters = dist_int(D);
+            if (D != 0 && D <= 15000) {
+                meters = String.valueOf((int) D) + "м";
             } else {
                 meters = "0";
             }
 
-            if (meters != "0"){
+            if (meters != "0") {
                 textView_text.setText(meters);
             } else {
                 textView_text.setVisibility(View.INVISIBLE);
             }
         }
-        private double distance(final double myLat, final double myLng, final float eLat, final float eLng){
+
+        private double distance(final double myLat, final double myLng, final float eLat, final float eLng) {
             Location.distanceBetween(myLat, myLng, eLat, eLng, dis);
             return dis[0];
         }
 
-        private String dist_int(double dis){
-            int disInt = (int) (dis / 50);
-            disInt *= 50;
-            String t = "м";
-            if (disInt <= 100) {
-                return ">" + String.valueOf(disInt) + t;
-            } else if (disInt <= 950){
-                disInt += 50;
-                return ">" + String.valueOf(disInt) + t;
-            } else if (disInt > 1000){
-                disInt /= 1000;
-                t = "км";
-                return ">" + String.valueOf(disInt) + t;
-            }
-            return ">" + String.valueOf(disInt) + t;
+        private String str_dis(double dist) {
+            String d = "";
+
+            return d;
         }
     }
 

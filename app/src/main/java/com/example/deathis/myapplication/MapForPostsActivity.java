@@ -24,6 +24,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -57,6 +58,9 @@ public class MapForPostsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_for_posts);
 
+        Intent i = this.getIntent();
+        final String title = i.getStringExtra("title");
+        final String text = i.getStringExtra("text");
 
         b = findViewById(R.id.buttonSetPoint);
         b.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +73,8 @@ public class MapForPostsActivity extends AppCompatActivity {
                         NewPostActivity.class);
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
+                intent.putExtra("title", title);
+                intent.putExtra("text", text);
                 startActivity(intent);
             }
         });
@@ -198,6 +204,9 @@ public class MapForPostsActivity extends AppCompatActivity {
     }
 
     public  void setMarker(){
+        final ArrayList<Rep> arrayListRepUp = new ArrayList<Rep>();
+        final ArrayList<Rep> arrayListRepDown = new ArrayList<Rep>();
+
         mAuth = FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference();
 
@@ -209,16 +218,36 @@ public class MapForPostsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 arrayList.clear();
+                arrayListRepUp.clear();
+                arrayListRepDown.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Post post = postSnapshot.getValue(Post.class);
+                    arrayListRepUp.clear();
+                    arrayListRepDown.clear();
+                    for (DataSnapshot postSnapshotRep_up : postSnapshot.child("rep_up").getChildren()) {
+                        Rep rep = postSnapshotRep_up.getValue(Rep.class);
+                        arrayListRepUp.add(rep);
+                    }
+                    for (DataSnapshot postSnapshotRep_down : postSnapshot.child("rep_down").getChildren()) {
+                        Rep rep = postSnapshotRep_down.getValue(Rep.class);
+                        arrayListRepDown.add(rep);
+                    }
+                    Post post = new Post();
+                    post.setTime(postSnapshot.child("time").getValue().toString());
+                    post.setTitle(postSnapshot.child("title").getValue().toString());
+                    post.setText(postSnapshot.child("text").getValue().toString());
+                    post.setAuthor(postSnapshot.child("author").getValue().toString());
+                    post.setLat(postSnapshot.child("lat").getValue().toString());
+                    post.setLng(postSnapshot.child("lng").getValue().toString());
+                    post.setRep_up(arrayListRepUp);
+                    post.setRep_down(arrayListRepDown);
                     arrayList.add(post);
-
                     float lat = Float.parseFloat(post.getLat());
                     float lng = Float.parseFloat(post.getLng());
                     String title = post.getTitle();
 
                     LatLng marketLL = new LatLng(lat, lng);
-                    Mmap.addMarker(new MarkerOptions().position(marketLL).title(title));
+                    Mmap.addMarker(new MarkerOptions().position(marketLL).title(title))
+                            .setIcon(BitmapDescriptorFactory.defaultMarker(150));
                 }
 
             }

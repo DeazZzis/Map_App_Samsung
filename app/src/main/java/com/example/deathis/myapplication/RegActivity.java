@@ -88,6 +88,14 @@ public class RegActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Реєстрація успішна!",
                                     Toast.LENGTH_LONG).show();
+                            User user = new User();
+                            user.setEmail(edEM.getText().toString());
+                            user.setFirst_name(edFN.getText().toString());
+                            user.setPass(edPASS.getText().toString());
+                            user.setSecond_name(edSN.getText().toString());
+                            user.setUid(mAuth.getUid());
+
+                            myRef.child("users").push().setValue(user);
                             Intent intent = new Intent(RegActivity.this,
                                     LoginActivity.class);
                             startActivity(intent);

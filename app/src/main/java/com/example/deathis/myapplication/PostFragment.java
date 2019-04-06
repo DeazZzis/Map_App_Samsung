@@ -73,6 +73,9 @@ public class PostFragment extends Fragment {
 
         arrayListPost = new ArrayList<Post>();
 
+        arrayListRepUp = new ArrayList<Rep>();
+        arrayListRepDown = new ArrayList<Rep>();
+
         mAuth = FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference();
 
@@ -81,15 +84,41 @@ public class PostFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 arrayListPost.clear();
+                arrayListRepUp.clear();
+                arrayListRepDown.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Post post = postSnapshot.getValue(Post.class);
+                    arrayListRepUp.clear();
+                    arrayListRepDown.clear();
+                    for (DataSnapshot postSnapshotRep_up : postSnapshot.child("rep_up").getChildren()) {
+                        Rep rep = postSnapshotRep_up.getValue(Rep.class);
+                        arrayListRepUp.add(rep);
+                    }
+                    for (DataSnapshot postSnapshotRep_down : postSnapshot.child("rep_down").getChildren()) {
+                        Rep rep = postSnapshotRep_down.getValue(Rep.class);
+                        arrayListRepDown.add(rep);
+                    }
+                    Post post = new Post();
+                    post.setTime(postSnapshot.child("time").getValue().toString());
+                    post.setTitle(postSnapshot.child("title").getValue().toString());
+                    post.setText(postSnapshot.child("text").getValue().toString());
+                    post.setAuthor(postSnapshot.child("author").getValue().toString());
+                    post.setLat(postSnapshot.child("lat").getValue().toString());
+                    post.setLng(postSnapshot.child("lng").getValue().toString());
+                    post.setRep_up(arrayListRepUp);
+                    post.setRep_down(arrayListRepDown);
                     arrayListPost.add(post);
                 }
+
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                 recyclerView.setLayoutManager(layoutManager);
 
                 MapsActivity mapsActivity = new MapsActivity();
+
+                GPSTracker gpsTracker = new GPSTracker(view.getContext());
+                myLat = gpsTracker.getLatitude();
+                myLng = gpsTracker.getLongitude();
+
 
                 rvAdapter = new RVAdapter(arrayListPost, view.getContext(), myLat, myLng);
                 recyclerView.setAdapter(rvAdapter);
@@ -102,8 +131,6 @@ public class PostFragment extends Fragment {
 
             }
         });
-
-
 
 
         return view;
