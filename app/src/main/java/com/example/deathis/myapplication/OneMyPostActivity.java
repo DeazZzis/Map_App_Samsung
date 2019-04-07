@@ -27,13 +27,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class OneMyPostActivity extends AppCompatActivity {
 
     private String title, text;
     private float lat, lng;
-    private String dis, fn, sn, uid;
+    private String dis, nik, uid;
     private double D;
     private DatabaseReference myRef, ref, del_ref;
     private FirebaseAuth mAuth;
@@ -56,7 +57,7 @@ public class OneMyPostActivity extends AppCompatActivity {
         i = bundle.getInt("rep_int");
         LatLng latLng = new LatLng(lat, lng);
 
-        TextView textViewUser = findViewById(R.id.textview_user);
+        final TextView textViewUser = findViewById(R.id.textview_user);
         TextView textViewRep = findViewById(R.id.textview_rep1);
         TextView textViewText = findViewById(R.id.textview_text_one_my_post);
         TextView textViewTitle = findViewById(R.id.title_info_one_my_post);
@@ -101,9 +102,11 @@ public class OneMyPostActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    if (postSnapshot.child("uid").getValue().toString().equals(uid)) {
-                        fn = postSnapshot.child("first_name").getValue().toString();
-                        sn = postSnapshot.child("second_name").getValue().toString();
+                    if (postSnapshot.getKey().toString().equals(mAuth.getUid())) {
+                        User user = new User();
+                        user = postSnapshot.getValue(User.class);
+                        nik = user.getNik();
+                        textViewUser.setText("@" + nik);
                     }
                 }
             }
@@ -115,7 +118,6 @@ public class OneMyPostActivity extends AppCompatActivity {
 
         textViewTitle.setText(title);
         textViewText.setText(text);
-        textViewUser.setText(fn + " " + sn);
         textViewRep.setText(String.valueOf(i));
 
 

@@ -30,7 +30,7 @@ import java.io.IOException;
 
 public class RegActivity extends AppCompatActivity {
 
-    private EditText edFN, edSN, edEM, edPASS;
+    private EditText edFN, edSN, edEM, edPASS, edNK;
     private Button btn_sing_up;
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
@@ -46,6 +46,7 @@ public class RegActivity extends AppCompatActivity {
         edSN = findViewById(R.id.editTextSecondName);
         edEM = findViewById(R.id.editTextEmail);
         edPASS = findViewById(R.id.editTextPassword);
+        edNK = findViewById(R.id.editTextNik);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -71,6 +72,10 @@ public class RegActivity extends AppCompatActivity {
                     i += 1;
                     edPASS.setError("Це поле не може бути пустим!");
                 }
+                if (TextUtils.isEmpty(edNK.getText())) {
+                    i += 1;
+                    edNK.setError("Це поле не може бути пустим!");
+                }
                 if (i == 0) {
                     Registration();
                 }
@@ -94,8 +99,9 @@ public class RegActivity extends AppCompatActivity {
                             user.setPass(edPASS.getText().toString());
                             user.setSecond_name(edSN.getText().toString());
                             user.setUid(mAuth.getUid());
+                            user.setNik(edNK.getText().toString());
 
-                            myRef.child("users").push().setValue(user);
+                            myRef.child("users").child(mAuth.getUid()).setValue(user);
                             Intent intent = new Intent(RegActivity.this,
                                     LoginActivity.class);
                             startActivity(intent);

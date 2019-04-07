@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InfoPostActivity"
-    android:orientation="vertical">
+    android:background="#B8B8B8"
+    android:orientation="vertical"
+    tools:context=".InfoPostActivity">
 
     <FrameLayout
-        android:id="@+id/framelayout2"
+        android:id="@+id/framelayout2_info"
         android:layout_width="match_parent"
         android:layout_height="220dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,36 +18,121 @@
 
     </FrameLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="6dp">
+        android:layout_below="@+id/framelayout2_info"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="20dp">
 
         <TextView
-            android:id="@+id/title_info"
+            android:id="@+id/textview_user_info"
             android:layout_width="wrap_content"
-            android:layout_weight="3"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:paddingLeft="6dp"
+            android:text="\@User"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/meters_info_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:paddingTop="4dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="4dp"
+            android:text="met"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll1"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="6dp"
+        android:background="@drawable/roundbutton"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/title_info_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:paddingLeft="6dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:text="Title"
             android:textSize="40sp" />
 
-        <TextView
-            android:id="@+id/meters_info"
-            android:layout_width="100dp"
-            android:layout_weight="1"
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:text=""
-            android:textSize="22sp" />
+            android:layout_weight="3">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+
+                <ImageButton
+                    android:id="@+id/arrow_up"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_arrow_upward_black_24dp" />
+
+                <TextView
+                    android:id="@+id/textview_rep1_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="rep"
+                    android:textSize="30sp" />
+
+                <ImageButton
+                    android:id="@+id/arrow_down"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_arrow_downward_black_24dp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textview_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="27sp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_below="@+id/linearLayout_info"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="6dp"
+        android:background="@drawable/roundbutton">
 
+        <TextView
+            android:id="@+id/textview_text_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:text=""
+            android:textSize="27sp" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

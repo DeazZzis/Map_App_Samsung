@@ -104,8 +104,10 @@ public class PostFragment extends Fragment {
                     post.setAuthor(postSnapshot.child("author").getValue().toString());
                     post.setLat(postSnapshot.child("lat").getValue().toString());
                     post.setLng(postSnapshot.child("lng").getValue().toString());
-                    post.setRep_up(arrayListRepUp);
-                    post.setRep_down(arrayListRepDown);
+                    ArrayList<Rep> alru = new ArrayList<Rep>(arrayListRepUp);
+                    ArrayList<Rep> alrd = new ArrayList<Rep>(arrayListRepDown);
+                    post.setRep_up(alru);
+                    post.setRep_down(alrd);
                     arrayListPost.add(post);
                 }
 

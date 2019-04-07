@@ -158,6 +158,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RViewHolder> {
                     in.putExtra("lng", lng);
                     in.putExtra("meters", meters);
                     in.putExtra("D", String.valueOf(D));
+                    in.putExtra("rep_int", mainS.get(position).getRep_up().size() -
+                            mainS.get(position).getRep_down().size());
+                    in.putExtra("auth", mainS.get(position).getAuthor());
                     parent.startActivity(in);
                 }
             });
@@ -165,7 +168,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RViewHolder> {
 
         void bind(String s1, String lat2, String lng2, Post post) {
             textView_title.setText(s1);
-            int rep_size = post.getRep_up().size() - post.getRep_down().size();
+            int rep_size = 0;
+            rep_size = post.getRep_up().size() - post.getRep_down().size();
             textView_rep.setText(String.valueOf(rep_size));
 
             D = distance(myLat, myLng, Float.parseFloat(lat2), Float.parseFloat(lng2));

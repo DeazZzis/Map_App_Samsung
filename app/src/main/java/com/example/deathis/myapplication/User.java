@@ -2,7 +2,7 @@ package com.example.deathis.myapplication;
 
 public class User {
 
-    private String first_name, second_name, email, pass, uid;
+    private String first_name, second_name, email, pass, uid, nik;
 
     public String getFirst_name() {
         return first_name;
@@ -42,5 +42,13 @@ public class User {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getNik() {
+        return nik;
+    }
+
+    public void setNik(String nik) {
+        this.nik = nik;
     }
 }
