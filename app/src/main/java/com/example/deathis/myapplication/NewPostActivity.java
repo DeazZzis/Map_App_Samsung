@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
+import com.example.deathis.myapplication.Fragments.MapFragment;
+import com.example.deathis.myapplication.Models.Post;
+import com.example.deathis.myapplication.Models.Rep;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;

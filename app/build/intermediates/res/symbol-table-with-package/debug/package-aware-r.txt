@@ -103,10 +103,22 @@ attr cameraTargetLat
 attr cameraTargetLng
 attr cameraTilt
 attr cameraZoom
+attr cardBackgroundColor
+attr cardCornerRadius
+attr cardElevation
+attr cardMaxElevation
+attr cardPreventCornerOverlap
+attr cardUseCompatPadding
+attr cardViewStyle
 attr chainUseRtl
 attr checkboxStyle
 attr checkedTextViewStyle
 attr circleCrop
+attr civ_border_color
+attr civ_border_overlay
+attr civ_border_width
+attr civ_circle_background_color
+attr civ_fill_color
 attr closeIcon
 attr closeItemLayout
 attr collapseContentDescription
@@ -136,6 +148,11 @@ attr contentInsetLeft
 attr contentInsetRight
 attr contentInsetStart
 attr contentInsetStartWithNavigation
+attr contentPadding
+attr contentPaddingBottom
+attr contentPaddingLeft
+attr contentPaddingRight
+attr contentPaddingTop
 attr contentScrim
 attr controlBackground
 attr coordinatorLayoutStyle
@@ -302,6 +319,37 @@ attr maxActionInlineWidth
 attr maxButtonHeight
 attr measureWithLargestChild
 attr menu
+attr met_accentTypeface
+attr met_autoValidate
+attr met_baseColor
+attr met_bottomTextSize
+attr met_checkCharactersCountAtBeginning
+attr met_clearButton
+attr met_errorColor
+attr met_floatingLabel
+attr met_floatingLabelAlwaysShown
+attr met_floatingLabelAnimating
+attr met_floatingLabelPadding
+attr met_floatingLabelText
+attr met_floatingLabelTextColor
+attr met_floatingLabelTextSize
+attr met_helperText
+attr met_helperTextAlwaysShown
+attr met_helperTextColor
+attr met_hideUnderline
+attr met_iconLeft
+attr met_iconPadding
+attr met_iconRight
+attr met_maxCharacters
+attr met_minBottomTextLines
+attr met_minCharacters
+attr met_primaryColor
+attr met_singleLineEllipsis
+attr met_textColor
+attr met_textColorHint
+attr met_typeface
+attr met_underlineColor
+attr met_validateOnFocusLost
 attr multiChoiceItemLayout
 attr navigationContentDescription
 attr navigationIcon
@@ -495,7 +543,12 @@ color bright_foreground_material_dark
 color bright_foreground_material_light
 color button_material_dark
 color button_material_light
+color cardview_dark_background
+color cardview_light_background
+color cardview_shadow_end_color
+color cardview_shadow_start_color
 color colorAccent
+color colorMsg
 color colorPrimary
 color colorPrimaryDark
 color colormain
@@ -647,11 +700,18 @@ dimen abc_text_size_title_material_toolbar
 dimen activity_horizontal_margin
 dimen activity_vertical_margin
 dimen appbar_padding_top
+dimen bottom_ellipsis_height
+dimen bottom_text_size
+dimen cardview_compat_inset_shadow
+dimen cardview_default_elevation
+dimen cardview_default_radius
 dimen compat_button_inset_horizontal_material
 dimen compat_button_inset_vertical_material
 dimen compat_button_padding_horizontal_material
 dimen compat_button_padding_vertical_material
 dimen compat_control_corner_material
+dimen default_padding_bottom
+dimen default_padding_top
 dimen design_appbar_elevation
 dimen design_bottom_navigation_active_item_max_width
 dimen design_bottom_navigation_active_text_size
@@ -696,6 +756,7 @@ dimen fab_margin
 dimen fastscroll_default_thickness
 dimen fastscroll_margin
 dimen fastscroll_minimum_range
+dimen floating_label_text_size
 dimen highlight_alpha_material_colored
 dimen highlight_alpha_material_dark
 dimen highlight_alpha_material_light
@@ -703,6 +764,9 @@ dimen hint_alpha_material_dark
 dimen hint_alpha_material_light
 dimen hint_pressed_alpha_material_dark
 dimen hint_pressed_alpha_material_light
+dimen inner_components_spacing
+dimen inner_padding_left
+dimen inner_padding_right
 dimen item_touch_helper_max_drag_scroll_per_frame
 dimen item_touch_helper_swipe_escape_max_velocity
 dimen item_touch_helper_swipe_escape_velocity
@@ -814,6 +878,8 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable background_left
+drawable background_right
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
@@ -841,6 +907,8 @@ drawable design_password_eye
 drawable design_snackbar_background
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
+drawable ic_action_img_person
+drawable ic_action_send
 drawable ic_arrow_downward_black_24dp
 drawable ic_arrow_downward_blue_24dp
 drawable ic_arrow_upward_black_24dp
@@ -851,6 +919,7 @@ drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_notifications_black_24dp
 drawable logo
+drawable met_ic_clear
 drawable navigation_empty_icon
 drawable notification_action_background
 drawable notification_bg
@@ -905,10 +974,13 @@ id arrow_down
 id arrow_up
 id async
 id auto
+id bar_layout
 id barrier
 id beginning
 id blocking
 id bottom
+id btn_reset
+id btn_send
 id button2_map
 id button2_post
 id buttonCreateNewPost
@@ -967,12 +1039,16 @@ id fill_horizontal
 id fill_vertical
 id fixed
 id forever
+id forget_pass
 id framelayout2_info
 id framelayout2_one_my_post
 id framelayout3
+id framelayout_profile
 id ghost_view
+id glide_custom_view_target_tag
 id gone
 id groups
+id highlight
 id home
 id homeAsUp
 id hybrid
@@ -981,11 +1057,14 @@ id icon_group
 id icon_only
 id ifRoom
 id image
+id img_off
+id img_on
 id info
 id invisible
 id italic
 id item_touch_helper_previous_elevation
 id largeLabel
+id last_msg
 id left
 id light
 id line1
@@ -1027,10 +1106,13 @@ id percent
 id pin
 id post_f
 id post_nav_view
+id profile_image
 id progress_circular
 id progress_horizontal
 id radio
 id recyclerview2
+id recyclerview_chats
+id recyclerview_message
 id relativelayout1
 id relativelayout2
 id right
@@ -1059,10 +1141,12 @@ id search_src_text
 id search_voice_btn
 id section_label
 id select_dialog_listview
+id send_email
 id shortcut
 id showCustom
 id showHome
 id showTitle
+id show_message
 id slidable_content
 id slidable_panel
 id smallLabel
@@ -1098,6 +1182,7 @@ id textViewNik
 id textViewPassword
 id textViewSecondName
 id text_input_password_toggle
+id text_send
 id textinput_counter
 id textinput_error
 id textview_met
@@ -1124,9 +1209,11 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+id txt_seen
 id uniform
 id up
 id useLogo
+id username
 id view
 id view1
 id viewButton
@@ -1178,11 +1265,16 @@ layout activity_info_post
 layout activity_login
 layout activity_map_for_posts
 layout activity_maps
+layout activity_message
 layout activity_new_post
 layout activity_one_my_post
 layout activity_post
+layout activity_profile
 layout activity_reg
+layout activity_reset_password
 layout activity_start
+layout chat_item_left
+layout chat_item_right
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
 layout design_layout_snackbar
@@ -1197,10 +1289,12 @@ layout design_navigation_item_subheader
 layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
+layout fragment_chats
 layout fragment_main
 layout fragment_map
 layout fragment_mypost
 layout fragment_post
+layout fragment_profile
 layout notification_action
 layout notification_action_tombstone
 layout notification_media_action
@@ -1221,6 +1315,7 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+layout user_item
 menu menu
 menu navigation
 menu navigation_view
@@ -1280,6 +1375,7 @@ string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
 string default_web_client_id
+string fcm_fallback_notification_channel_label
 string firebase_database_url
 string gcm_defaultSenderId
 string google_api_key
@@ -1325,6 +1421,7 @@ style Base_AlertDialog_AppCompat_Light
 style Base_Animation_AppCompat_Dialog
 style Base_Animation_AppCompat_DropDownUp
 style Base_Animation_AppCompat_Tooltip
+style Base_CardView
 style Base_DialogWindowTitle_AppCompat
 style Base_DialogWindowTitleBackground_AppCompat
 style Base_TextAppearance_AppCompat
@@ -1478,6 +1575,9 @@ style Base_Widget_AppCompat_Toolbar
 style Base_Widget_AppCompat_Toolbar_Button_Navigation
 style Base_Widget_Design_AppBarLayout
 style Base_Widget_Design_TabLayout
+style CardView
+style CardView_Dark
+style CardView_Light
 style Platform_AppCompat
 style Platform_AppCompat_Light
 style Platform_ThemeOverlay_AppCompat
@@ -1708,6 +1808,8 @@ styleable AppCompatTheme android_windowIsFloating android_windowAnimationStyle a
 styleable BottomNavigationView elevation itemBackground itemIconTint itemTextColor menu
 styleable BottomSheetBehavior_Layout behavior_hideable behavior_peekHeight behavior_skipCollapsed
 styleable ButtonBarLayout allowStacking
+styleable CardView android_minWidth android_minHeight cardBackgroundColor cardCornerRadius cardElevation cardMaxElevation cardPreventCornerOverlap cardUseCompatPadding contentPadding contentPaddingBottom contentPaddingLeft contentPaddingRight contentPaddingTop
+styleable CircleImageView civ_border_color civ_border_overlay civ_border_width civ_circle_background_color civ_fill_color
 styleable CollapsingToolbarLayout collapsedTitleGravity collapsedTitleTextAppearance contentScrim expandedTitleGravity expandedTitleMargin expandedTitleMarginBottom expandedTitleMarginEnd expandedTitleMarginStart expandedTitleMarginTop expandedTitleTextAppearance scrimAnimationDuration scrimVisibleHeightTrigger statusBarScrim title titleEnabled toolbarId
 styleable CollapsingToolbarLayout_Layout layout_collapseMode layout_collapseParallaxMultiplier
 styleable ColorStateListItem android_color android_alpha alpha
@@ -1730,6 +1832,7 @@ styleable LinearLayoutCompat_Layout android_layout_gravity android_layout_width 
 styleable ListPopupWindow android_dropDownHorizontalOffset android_dropDownVerticalOffset
 styleable LoadingImageView circleCrop imageAspectRatio imageAspectRatioAdjust
 styleable MapAttrs ambientEnabled cameraBearing cameraMaxZoomPreference cameraMinZoomPreference cameraTargetLat cameraTargetLng cameraTilt cameraZoom latLngBoundsNorthEastLatitude latLngBoundsNorthEastLongitude latLngBoundsSouthWestLatitude latLngBoundsSouthWestLongitude liteMode mapType uiCompass uiMapToolbar uiRotateGestures uiScrollGestures uiScrollGesturesDuringRotateOrZoom uiTiltGestures uiZoomControls uiZoomGestures useViewLifecycle zOrderOnTop
+styleable MaterialEditText met_accentTypeface met_autoValidate met_baseColor met_bottomTextSize met_checkCharactersCountAtBeginning met_clearButton met_errorColor met_floatingLabel met_floatingLabelAlwaysShown met_floatingLabelAnimating met_floatingLabelPadding met_floatingLabelText met_floatingLabelTextColor met_floatingLabelTextSize met_helperText met_helperTextAlwaysShown met_helperTextColor met_hideUnderline met_iconLeft met_iconPadding met_iconRight met_maxCharacters met_minBottomTextLines met_minCharacters met_primaryColor met_singleLineEllipsis met_textColor met_textColorHint met_typeface met_underlineColor met_validateOnFocusLost
 styleable MenuGroup android_enabled android_id android_visible android_menuCategory android_orderInCategory android_checkableBehavior
 styleable MenuItem android_icon android_enabled android_id android_checked android_visible android_menuCategory android_orderInCategory android_title android_titleCondensed android_alphabeticShortcut android_numericShortcut android_checkable android_onClick actionLayout actionProviderClass actionViewClass alphabeticModifiers contentDescription iconTint iconTintMode numericModifiers showAsAction tooltipText
 styleable MenuView android_windowAnimationStyle android_itemTextAppearance android_horizontalDivider android_verticalDivider android_headerBackground android_itemBackground android_itemIconDisabledAlpha preserveIconSpacing subMenuArrow

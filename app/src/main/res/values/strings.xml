@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ЛАД</string>
+    <string name="app_name">Lad</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_location_permission">title_location_permission</string>
     <string name="text_location_permission">text_location_permission</string>

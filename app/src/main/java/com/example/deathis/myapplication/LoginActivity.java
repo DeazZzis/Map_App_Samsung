@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mAuth;
     private EditText editTextLogin, editTextPass;
     private Button btnLogin, btnReg;
+    private TextView forget_pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextPass = findViewById(R.id.editTextPass);
         btnLogin = findViewById(R.id.buttonLogin);
         btnReg = findViewById(R.id.buttonReg);
+        forget_pass = findViewById(R.id.forget_pass);
+
+        forget_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
+            }
+        });
 
 
         btnLogin.setOnClickListener(this);

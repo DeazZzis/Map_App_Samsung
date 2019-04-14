@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
@@ -13,17 +14,29 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.deathis.myapplication.Fragments.MapFragment;
+import com.example.deathis.myapplication.Fragments.MyPostFragment;
+import com.example.deathis.myapplication.Fragments.PostFragment;
+import com.example.deathis.myapplication.Fragments.ProfileFragment;
+import com.example.deathis.myapplication.Models.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MapsActivity extends AppCompatActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +53,10 @@ public class MapsActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     private double myLat, myLng;
 
+    private CircleImageView profile_image;
+    private TextView username;
+
+    private DatabaseReference ref;
 
 
     @Override
@@ -55,6 +72,40 @@ public class MapsActivity extends AppCompatActivity
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+
+        profile_image = findViewById(R.id.profile_image);
+        username = findViewById(R.id.username);
+
+        username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        ref = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                username.setText(user.getNik());
+
+                if(user.getImageURL().equals("def")){
+                    profile_image.setImageResource(R.drawable.ic_action_img_person);
+                } else {
+                    Glide.with(getApplicationContext()).load(user.getImageURL()).into(profile_image);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -71,10 +122,6 @@ public class MapsActivity extends AppCompatActivity
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,8 +138,8 @@ public class MapsActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             mAuth.signOut();
             startActivity(new Intent(MapsActivity.this,
-                    LoginActivity.class));
-            finish();
+                    LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -177,5 +224,25 @@ public class MapsActivity extends AppCompatActivity
         }
     }
 
+    private void status(String status){
+        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+        ref = FirebaseDatabase.getInstance().getReference("users").child(mUser.getUid());
 
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        ref.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        status("online");
+    }
 }

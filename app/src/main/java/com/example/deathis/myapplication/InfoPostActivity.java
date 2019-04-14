@@ -1,15 +1,14 @@
 package com.example.deathis.myapplication;
 
-import android.support.annotation.DrawableRes;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.deathis.myapplication.Fragments.MapFragment;
+import com.example.deathis.myapplication.Models.User;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -18,21 +17,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Random;
-
 public class InfoPostActivity extends AppCompatActivity {
 
     private String title, text;
     private float lat, lng;
-    private String dis, nik, uid;
+    private String dis, nik, uid, key_user, k_rep_up, k_rep_down;
     private double D;
-    private DatabaseReference myRef;
+    private DatabaseReference myRef, ref;
     private FirebaseAuth mAuth;
     private int i;
     private ImageButton ar_up, ar_down;
@@ -57,7 +48,7 @@ public class InfoPostActivity extends AppCompatActivity {
         LatLng latLng = new LatLng(lat, lng);
 
         final TextView textViewUser = findViewById(R.id.textview_user_info);
-        TextView textViewRep = findViewById(R.id.textview_rep1_info);
+        final TextView textViewRep = findViewById(R.id.textview_rep1_info);
         TextView textViewText = findViewById(R.id.textview_text_info);
         TextView textViewTitle = findViewById(R.id.title_info_info);
         TextView textViewMet = findViewById(R.id.meters_info_info);
@@ -67,11 +58,42 @@ public class InfoPostActivity extends AppCompatActivity {
         textViewTitle.setText(title);
         textViewText.setText(text);
 
+
+//        String k = key();
+
+//        ar_down_b = false;
+//
+//
+//        if (check_rep_up()) {
+//            ar_up.setBackground(getResources().getDrawable(R.drawable.ic_arrow_upward_green_24dp));
+//            ar_down.setBackground(getResources().getDrawable(R.drawable.ic_arrow_downward_black_24dp));
+//            ar_up_b = true;
+//            myRef.child("posts").child(key()).child("rep_up").child(k_rep_up).removeValue();
+//        } else {
+//            ar_up_b = false;
+//        }
+//
+//        if (check_rep_down()) {
+//            ar_down.setBackground(getResources().getDrawable(R.drawable.ic_arrow_downward_blue_24dp));
+//            ar_up.setBackground(getResources().getDrawable(R.drawable.ic_arrow_upward_black_24dp));
+//            ar_down_b = true;
+//            myRef.child("posts").child(key()).child("rep_down").child(k_rep_down).removeValue();
+//        } else {
+//            ar_down_b = false;
+//        }
+//
+
+
         ar_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ar_up.setBackground(getResources().getDrawable(R.drawable.ic_arrow_upward_green_24dp));
                 ar_down.setBackground(getResources().getDrawable(R.drawable.ic_arrow_downward_black_24dp));
+                i = +1;
+                textViewRep.setText(String.valueOf(i));
+
+//                ar_up_b = true;
+//                ar_down_b = false;
             }
         });
 
@@ -80,6 +102,11 @@ public class InfoPostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ar_down.setBackground(getResources().getDrawable(R.drawable.ic_arrow_downward_blue_24dp));
                 ar_up.setBackground(getResources().getDrawable(R.drawable.ic_arrow_upward_black_24dp));
+                i = -1;
+                textViewRep.setText(String.valueOf(i));
+
+//                ar_down_b = true;
+//                ar_up_b = false;
             }
         });
 
@@ -95,10 +122,11 @@ public class InfoPostActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    if (postSnapshot.getKey().toString().equals(mAuth.getUid())) {
+                    if (postSnapshot.getKey().toString().equals(uid)) {
                         User user = new User();
                         user = postSnapshot.getValue(User.class);
                         nik = user.getNik();
+                        key_user = user.getUid();
                         textViewUser.setText("@" + nik);
                     }
                 }
@@ -113,6 +141,15 @@ public class InfoPostActivity extends AppCompatActivity {
         textViewText.setText(text);
         textViewRep.setText(String.valueOf(i));
 
+        textViewUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InfoPostActivity.this, MessageActivity.class);
+                intent.putExtra("user_uid", key_user);
+                startActivity(intent);
+            }
+        });
+
         MapFragment mapFragment = new MapFragment(latLng, 17);
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout2_info, mapFragment).commit();
 
@@ -121,5 +158,97 @@ public class InfoPostActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+//        Rep rep = new Rep();
+//        rep.setAuth(mAuth.getUid());
+//
+//        if (ar_up_b) {
+//            myRef.child("posts").child(key()).child("rep_up").push().setValue(rep);
+//        } else {
+//
+//        }
+//        if (ar_down_b) {
+//            myRef.child("posts").child(key()).child("rep_down").push().setValue(rep);
+//        } else {
+//
+//        }
 
+        super.onDestroy();
+    }
+
+//    private String key() {
+//        final String[] k = new String[1];
+//
+//        ref = FirebaseDatabase.getInstance().getReference();
+//        ref.child("posts").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//                    if ( postSnapshot.child("title").getValue().equals(title) &&
+//                            postSnapshot.child("text").getValue().equals(text)) {
+//                        k[0] = postSnapshot.getKey();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//            }
+//        });
+//
+//        Toast.makeText(this, k[0], Toast.LENGTH_LONG);
+//        return k[0];
+//    }
+//
+//    private boolean check_rep_up() {
+//        final boolean[] b = {false};
+//
+//
+//        myRef = FirebaseDatabase.getInstance().getReference();
+//
+//        myRef.child("posts").child(key()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot postSnapshotRep_up : dataSnapshot.child("rep_up").getChildren()) {
+//                    Rep rep = postSnapshotRep_up.getValue(Rep.class);
+//                    if (rep.getAuth() == mAuth.getUid()) {
+//                        b[0] = true;
+//                        k_rep_up = postSnapshotRep_up.getKey();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//            }
+//        });
+//
+//        return b[0];
+//    }
+//
+//    private boolean check_rep_down() {
+//        final boolean[] b = {false};
+//
+//        myRef = FirebaseDatabase.getInstance().getReference();
+//
+//        myRef.child("posts").child(key()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot postSnapshotRep_down : dataSnapshot.child("rep_down").getChildren()) {
+//                    Rep rep = postSnapshotRep_down.getValue(Rep.class);
+//                    if (rep.getAuth() == mAuth.getUid()) {
+//                        b[0] = true;
+//                        k_rep_down = postSnapshotRep_down.getKey();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//            }
+//        });
+//
+//        return b[0];
+//    }
 }

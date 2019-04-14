@@ -1,4 +1,4 @@
-#Sun Apr 07 15:21:07 EEST 2019
+#Sun Apr 14 11:26:48 EEST 2019
 base.0=C\:\\Users\\Deathis\\Documents\\Apps Studio\\Studio\\1\\Map_App_Samsung\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\out
 path.1=classes.dex
 renamed.1=classes2.dex
